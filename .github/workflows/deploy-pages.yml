@@ -1,5 +1,5 @@
-# Deploy do site estático para GitHub Pages (branch main)
-# Requer: Settings → Pages → Build and deployment → Source: GitHub Actions
+# Publica o build em https://<user>.github.io/<repo>/
+# Usa a branch gh-pages (não depende da opção "GitHub Actions" em Settings → Pages).
 name: Deploy GitHub Pages
 
 on:
@@ -8,16 +8,14 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
-  group: pages
-  cancel-in-progress: false
+  group: gh-pages-deploy
+  cancel-in-progress: true
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -35,18 +33,10 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: dist
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy
-        id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          # Evita histórico infinito na branch gh-pages (opcional)
+          force_orphan: true
