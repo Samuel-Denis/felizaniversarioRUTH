@@ -10,12 +10,14 @@ Depois do deploy, o site fica em:
 
 ### Primeira vez no repositório
 
-1. Faz **push** para `main` (o workflow gera a branch **`gh-pages`** com o site).
-2. **Settings** → **Pages** → **Build and deployment** → **Source**: **Deploy from a branch**.
-3. **Branch**: escolhe **`gh-pages`** e pasta **`/ (root)`** → **Save**.
-4. Espera 1–2 minutos e abre o URL acima.
+1. Faz **push** para `main` (o workflow gera/atualiza a branch **`gh-pages`** com o site **compilado**).
+2. **Settings** → **Pages** → **Build and deployment**:
+   - **Source**: **Deploy from a branch** (não uses “GitHub Actions” para este workflow).
+   - **Branch**: **`gh-pages`** · **Folder**: **`/ (root)`** → **Save**.
 
-> Se antes tentaste **GitHub Actions** como fonte e deu erro 404 no deploy: esse método usa só a branch **`gh-pages`**, não precisas ativar “GitHub Actions” em Pages.
+**Importante:** se escolheres a branch **`main`** em Pages, o site mostra o `index.html` de **desenvolvimento** (`/src/main.tsx`) e o browser dá **404 em `main.tsx`** — tela branca. Tem de ser sempre **`gh-pages`**.
+
+3. Espera 1–2 minutos após o workflow ficar verde e abre o URL acima.
 
 ### Se mudares o nome do repositório no GitHub
 

@@ -33,10 +33,25 @@ jobs:
       - name: Build
         run: npm run build
 
+      # Garante que o deploy não é o index.html de dev (/src/main.tsx → 404 no GitHub)
+      - name: Verificar build de produção
+        run: |
+          test -f dist/index.html
+          if grep -q '/src/main.tsx' dist/index.html; then
+            echo "::error::dist/index.html ainda aponta para main.tsx — o build falhou?"
+            exit 1
+          fi
+          if ! grep -q '/felizaniversarioRUTH/assets/' dist/index.html; then
+            echo "::error::dist/index.html não contém assets com base /felizaniversarioRUTH/"
+            exit 1
+          fi
+          echo "OK: index de produção válido"
+
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-          # Evita histórico infinito na branch gh-pages (opcional)
           force_orphan: true
+          # GitHub Pages não deve processar o site com Jekyll (evita ficheiros ignorados)
+          enable_jekyll: false
