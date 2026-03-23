@@ -1,6 +1,6 @@
-# Publica o build em https://<user>.github.io/<repo>/
-# Usa a branch gh-pages (não depende da opção "GitHub Actions" em Settings → Pages).
-name: Deploy GitHub Pages
+# Este workflow NÃO usa actions/deploy-pages (evita ficar preso em purging_cdn).
+# Publica só na branch gh-pages com peaceiris. Em Settings → Pages usa "Deploy from branch" → gh-pages.
+name: Vite → gh-pages (peaceiris)
 
 on:
   push:
@@ -33,7 +33,6 @@ jobs:
       - name: Build
         run: npm run build
 
-      # Garante que o deploy não é o index.html de dev (/src/main.tsx → 404 no GitHub)
       - name: Verificar build de produção
         run: |
           test -f dist/index.html
@@ -47,11 +46,10 @@ jobs:
           fi
           echo "OK: index de produção válido"
 
-      - name: Deploy to gh-pages
+      - name: Push dist para branch gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
           force_orphan: true
-          # GitHub Pages não deve processar o site com Jekyll (evita ficheiros ignorados)
           enable_jekyll: false

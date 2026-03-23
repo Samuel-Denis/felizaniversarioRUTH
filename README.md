@@ -10,14 +10,16 @@ Depois do deploy, o site fica em:
 
 ### Primeira vez no repositório
 
-1. Faz **push** para `main` (o workflow gera/atualiza a branch **`gh-pages`** com o site **compilado**).
+1. Faz **push** para `main`. O workflow **“Vite → gh-pages (peaceiris)”** gera/atualiza a branch **`gh-pages`** (não usa `deploy-pages`).
 2. **Settings** → **Pages** → **Build and deployment**:
    - **Source**: **Deploy from a branch** — **não** uses “GitHub Actions” aqui (evita o deploy `purging_cdn` preso e workflows Jekyll a mais).
    - **Branch**: **`gh-pages`** · **Folder**: **`/ (root)`** → **Save**.
 
 **Importante:** se escolheres a branch **`main`** em Pages, o site mostra o `index.html` de **desenvolvimento** (`/src/main.tsx`) e o browser dá **404 em `main.tsx`** — tela branca. Tem de ser sempre **`gh-pages`**.
 
-3. Espera 1–2 minutos após o workflow ficar verde e abre o URL acima.
+3. Espera 1–2 minutos após o workflow **“Vite → gh-pages (peaceiris)”** ficar verde e abre o URL acima.
+
+**Se vês `Run actions/deploy-pages@v4`:** isso **não** vem deste projeto atual — costuma ser (1) **re-execução** de um run **antigo** (Actions → cancela; abre só o run do **último commit** em `main`), ou (2) **Pages** ainda com fonte **“GitHub Actions”**. Muda para **Deploy from branch → gh-pages** e ignora runs antigos com `deploy-pages`.
 
 ### Se mudares o nome do repositório no GitHub
 
