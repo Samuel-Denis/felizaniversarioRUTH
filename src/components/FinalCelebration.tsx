@@ -155,6 +155,7 @@ export function FinalCelebration({ totalDays, ageYears }: FinalCelebrationProps)
         >
           {[
             { value: String(ageYears), label: 'Anos', color: '#7c5cff' },
+            { value: totalDays.toLocaleString('pt-BR'), label: 'Dias vividos', color: '#ff5ea8' },
             { value: '∞', label: 'Possibilidades', color: '#00d4ff' },
           ].map((stat, i) => (
             <motion.div

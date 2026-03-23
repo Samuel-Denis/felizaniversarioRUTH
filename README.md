@@ -1,4 +1,42 @@
-# React + TypeScript + Vite
+# Feliz Aniversário Ruth 🎂
+
+App interativo (React + Vite + TypeScript) com celebração, quiz e mini-jogo.
+
+## Site no ar (GitHub Pages)
+
+Depois do deploy, o site fica em:
+
+**https://samuel-denis.github.io/felizaniversarioRUTH/**
+
+### Primeira vez no repositório
+
+1. **Settings** → **Pages** → **Build and deployment** → **Source**: **GitHub Actions** (não “Deploy from a branch”).
+2. Faz **push** para `main`. O workflow **Deploy GitHub Pages** gera o build e publica a pasta `dist`.
+3. Espera 1–2 minutos e abre o URL acima.
+
+### Se mudares o nome do repositório no GitHub
+
+Atualiza `REPO_NAME` em `vite.config.ts` para coincidir com o nome do repo (o `base` do Vite tem de ser `/<nome-do-repo>/`).
+
+---
+
+## Desenvolvimento local
+
+```bash
+npm install
+npm run dev
+```
+
+Build de produção (mesmo base que no Pages):
+
+```bash
+npm run build
+npm run preview
+```
+
+---
+
+## React + TypeScript + Vite (template)
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
