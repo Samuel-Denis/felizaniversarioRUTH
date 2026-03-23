@@ -12,7 +12,7 @@ Depois do deploy, o site fica em:
 
 1. Faz **push** para `main` (o workflow gera/atualiza a branch **`gh-pages`** com o site **compilado**).
 2. **Settings** → **Pages** → **Build and deployment**:
-   - **Source**: **Deploy from a branch** (não uses “GitHub Actions” para este workflow).
+   - **Source**: **Deploy from a branch** — **não** uses “GitHub Actions” aqui (evita o deploy `purging_cdn` preso e workflows Jekyll a mais).
    - **Branch**: **`gh-pages`** · **Folder**: **`/ (root)`** → **Save**.
 
 **Importante:** se escolheres a branch **`main`** em Pages, o site mostra o `index.html` de **desenvolvimento** (`/src/main.tsx`) e o browser dá **404 em `main.tsx`** — tela branca. Tem de ser sempre **`gh-pages`**.
